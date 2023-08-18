@@ -1,4 +1,4 @@
-package JAVA;
+
 public class MagicSquare {
     public static void generateMagicSquare(int n) {
         int[][] magicSquare = new int[n][n];

@@ -1,4 +1,4 @@
-package JAVA;
+
 
 interface MyInterface {
     void doSomething();
