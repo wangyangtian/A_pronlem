@@ -111,7 +111,7 @@ size_t mergeSort(const T (&arr)[N]) {
     int len=N;
     int half=len/2;
     if(half==0)
-        return arr;
+        return *arr;
     else{
         T *left = new T[half];
         T *right = new T[len-half];
