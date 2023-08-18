@@ -106,25 +106,11 @@
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
-template <typename T, size_t N>
-size_t mergeSort(const T (&arr)[N]) {
-    int len=N;
-    int half=len/2;
-    if(half==0)
-        return *arr;
-    else{
-        T *left = new T[half];
-        T *right = new T[len-half];
-        for(int i=0;i<half;i++)
-        {
-            if()
-        }
 
-    }
-}
+
 int main(){
     int a[]={1,6,5,3,2,9,1,2,0,111};
-    mergeSort(a);
+    subroutine(a);
     for(int i=0;i<10;i++)
     {
         cout<<a[i]<<" ";
