@@ -104,19 +104,17 @@
 // }
 
 #include <iostream>
-#include <bits/stdc++.h>
+#include <vector>
 using namespace std;
-
-
 int main(){
-    int a[]={1,6,5,3,2,9,1,2,0,111};
-    subroutine(a);
-    for(int i=0;i<10;i++)
-    {
-        cout<<a[i]<<" ";
-    }
-    cout<<endl;
-    int temp=1/2;
-    cout<<temp;
+    vector<vector<int>> vv;
+    vv.push_back({1});
+    vv.push_back({1,1,1});
+    vv.push_back({1,1,1});
+    vector<vector<int>>::iterator it=vv.end();
+    vector<int>::iterator it1=it->end();
+    cout<<distance(vv.begin(),it);
+    
+
     return 0;
 }
