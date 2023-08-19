@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 int main() {
     vector<vector<int>> vv;
     vv.push_back({1});
