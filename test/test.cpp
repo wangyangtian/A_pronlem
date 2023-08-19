@@ -103,18 +103,63 @@
 //     return 0;
 // }
 
+// #include <iostream>
+// #include <vector>
+// using namespace std;
+// int main(){
+//     vector<vector<int>> vv;
+//     vv.push_back({1});
+//     vv.push_back({1,1,1});
+//     vv.push_back({1,1,1});
+//     vector<vector<int>>::iterator it=vv.end()-1;
+//     vector<int>::iterator it1=it->begin();
+//     cout<<*it1;
+//     return 0;
+// }
 #include <iostream>
 #include <vector>
 using namespace std;
-int main(){
-    vector<vector<int>> vv;
-    vv.push_back({1});
-    vv.push_back({1,1,1});
-    vv.push_back({1,1,1});
-    vector<vector<int>>::iterator it=vv.end();
-    vector<int>::iterator it1=it->end();
-    cout<<distance(vv.begin(),it);
-    
 
+int main() {
+    vector<vector<long>> vv;
+    vv.push_back({1});
+    vv.push_back({1, 1});
+    
+    long n;
+    cin >> n;
+    
+    if (n == 1) {
+        cout <<1<< endl;
+    } else {
+        long row = 2;
+        while (true) {
+            vector<long> v;
+            v.push_back(1);
+            
+            for (int j = 0; j < row - 1; j++) {
+                v.push_back(vv[row - 1][j] + vv[row - 1][j + 1]);
+            }
+            
+            v.push_back(1);
+            vv.push_back(v);
+            
+            for (int col = 0; col < v.size(); col++) {
+                if (v[col] == n) {
+                    cout <<row*(row+1)/2+col+1<< endl;
+                    return 0;
+                }
+            }
+
+            row++;
+        }
+    }
+    
     return 0;
 }
+
+
+
+
+
+
+
