@@ -1,37 +1,50 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-
-
+from scipy.stats import norm
+from matplotlib.patches import Polygon
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
+# 读取数据
+data = pd.read_excel('A_problem\缺餐.xlsx', usecols=[1])['年龄'].values
 
-# 读取Excel文件
-data = pd.read_excel('A_problem\data.xlsx')
+# 设置组距和直方图的边界
+bin_width = 10
+bins = np.arange(data.min(), data.max() + bin_width, bin_width)
 
-# 计算年龄
-current_year = 2023
-data['年龄'] = current_year - data['出生年']
+# 创建主轴和右侧y轴
+fig, ax1 = plt.subplots(figsize=(10, 6))
+ax2 = ax1.twinx()
 
-# 进行正态检验
-from scipy.stats import normaltest
-statistic, p_value = normaltest(data['年龄'])
-if p_value < 0.05:
-    print('数据不服从正态分布')
-else:
-    print('数据服从正态分布')
+# 绘制直方图
+n, bins, patches = ax1.hist(data, bins=bins, edgecolor='k', alpha=0.7)
 
-    
-# 绘制频率分布图
-plt.hist(data['年龄'], bins=range(0, 100, 2), edgecolor='white', rwidth=2, density=True)
-plt.xlabel('年龄')
-plt.ylabel('频率')
-plt.title('各年龄段的频率分布图')
+# 计算正态分布拟合的参数
+mu, sigma = norm.fit(data)
 
-# 画出拟合线
-import numpy as np
-from scipy.stats import norm
-x = np.linspace(data['年龄'].min(), data['年龄'].max(), 100)
-y = norm.pdf(x, data['年龄'].mean(), data['年龄'].std())
-plt.plot(x, y, 'r-', label='拟合线')
-plt.legend()
+# 绘制正态分布拟合线
+xmin, xmax = ax1.get_xlim()
+x = np.linspace(xmin, xmax, 100)
+p = norm.pdf(x, mu, sigma)
+ax2.plot(x, p, 'r', linewidth=2)
+
+ax1.set_xlabel('年龄')
+ax1.set_ylabel('频数', color='b')
+ax2.set_ylabel('频率', color='r')
+
+# 在图上添加拟合参数信息
+ax1.text(0.75, 0.95, f'$\mu={mu:.2f}$\n$\sigma={sigma:.2f}$', transform=ax1.transAxes, fontsize=12,
+         verticalalignment='top')
+
+# 添加阴影区域表示拟合的区间
+verts = [(mu - 2 * sigma, 0), (mu - 2 * sigma, ax1.get_ylim()[1]), (mu + 2 * sigma, ax1.get_ylim()[1]),
+         (mu + 2 * sigma, 0)]
+poly = Polygon(verts, facecolor='0.9', edgecolor='0.5', alpha=0.5)
+ax1.add_patch(poly)
+
+# 设置右侧y轴的颜色
+ax2.yaxis.label.set_color('r')
+ax2.tick_params(axis='y', colors='r')
+
+plt.grid()
 plt.show()
