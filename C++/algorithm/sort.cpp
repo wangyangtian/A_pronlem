@@ -101,5 +101,6 @@ int main(){
     cout<<"the number of element is "<<sizeof(a)/sizeof(int)<<""<<endl;
     for(int i:vec)
         cout<<i<<" ";
+    cout<<225*225*225;
     return 0;
 }

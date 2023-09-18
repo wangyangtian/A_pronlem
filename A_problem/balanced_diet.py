@@ -9,7 +9,6 @@ df['谷薯类'] = 0
 df['蔬菜水果'] = 0
 df['奶类'] =0
 df['肉蛋类'] = 0
-df['畜禽鱼蛋奶'] = 0
 df['豆类'] = 0
 
 # 检查'大米'、'小麦粉'、'薯类'列，如果有一个不为空，则将'谷薯类'列对应的值设为1
@@ -23,17 +22,11 @@ print('每天吃蔬菜水果：',df['蔬菜水果'].sum())
 df.loc[(~df['鲜奶(天)'].isnull()) | (~df['奶粉(天)'].isnull()) | (~df['酸奶(天)'].isnull()), '奶类'] = 1
 print('每天吃奶类：',df['奶类'].sum())
 
-df.loc[~(df['猪肉(天)'].isnull() & df['牛羊肉(天)'].isnull() & df['内脏(天)'].isnull() & df['禽肉(天)'].isnull() & df['水产(天)'].isnull()), '禽肉鱼蛋奶'] = 1
+df.loc[~(df['猪肉(天)'].isnull() & df['牛羊肉(天)'].isnull() & df['内脏(天)'].isnull() & df['禽肉(天)'].isnull() | df['水产(天)'].isnull()), '肉蛋类'] = 1
 print('每天吃肉蛋类：',df['肉蛋类'].sum())
 
-df.loc[~(df['肉蛋类'].isnull() & df['奶类'].isnull()), '畜禽鱼蛋奶'] = 1
-print('每天吃禽肉鱼蛋奶：',df['禽肉鱼蛋奶'].sum())
 
 df.loc[~(df['豆腐(天)'].isnull() & df['豆腐丝(天)'].isnull() & df['豆浆(天)'].isnull() & df['干豆(天)'].isnull()), '豆类'] = 1
 print('每天吃豆类：',df['豆类'].sum())
 
-df['平衡膳食'] = 0
-df.loc[~(df['谷薯类'].isnull() | df['蔬菜水果'].isnull() | df['禽肉鱼蛋奶'].isnull() | df['豆类'].isnull()), '平衡膳食'] = 1
-print('每天平衡膳食：',df['平衡膳食'].sum())
-# 保存修改后的Excel文件
-#df.to_excel('A_problem/饮食结构特征.xlsx', index=False)
+df.to_excel('A_problem/饮食结构特征.xlsx', index=False)
