@@ -27,7 +27,7 @@
  * 	Fax: (201) 236-3290
 */ 
 
-#include "Sales_item.h"
+#include "..\1\Sales_item.h"
 #include <iostream>
 #include <string>
 
